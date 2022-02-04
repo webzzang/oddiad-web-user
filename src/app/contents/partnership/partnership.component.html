@@ -1,0 +1,62 @@
+<main>
+    <div class="main-wrap">
+        <!-- sub main 이미지영역 -->
+        <section class="main-img">
+            <img src="assets/images/img-ptn-visual-3.png" alt="서브메인이미지">
+            <div>
+                <strong><span>강남, 서초, 잠실에 가게가 있으세요?</span>&nbsp;<span>월 10만 원씩 더 버는 기회를 잡으세요</span></strong>
+
+                <p><span>​오디AD가 빌려 드리는 화면을 켜 주시면</span>&nbsp;<span>저희가 광고를 송출하고 매달 10만 원씩 드립니다</span></p>
+                <p><span>(​동종 업종, 미풍양속에 벗어나는 광고는 재생 되지 않습니다)</span></p>
+            </div>
+        </section>
+        <section class="Benefits">
+            <div class="serction-wrap">
+                <div class="bene-box-wrap">
+                    <div class="col-80 bene-box">
+                        <div class="h-box box-style-none">
+                            <strong><span>월 10만원씩 받고,</span>&nbsp;<span>오디AD에서 제공하는 광고 켜두기</span></strong>
+                            <p>
+                                오디AD에서 제공해 드리는 TV를 켜주시면,<br>
+                                오디AD가 TV에 광고를 내보내고 사장님께는 한 달에 10만원을 드립니다!
+                            </p>
+                            <div class="h-img-box">
+                                <div class="i-box">
+                                    <span class="bene-img-1"></span>
+                                    <span class="bene-t">오디 AD 광고 송출</span>
+                                </div>
+                               <!-- <span class="arrow"></span>-->
+                                <span class="unit" data-unit="만원" data-day="월">10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-40 bene-box new-bene">
+                        <div class="bottom-btn-wrap">
+                            <button type="button" class="btn-01 go-button" (click)="openPartnershipDialog()">파트너 문의하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="parter-introduce">
+            <div class="serction-wrap">
+                <h2><span>​오디와 함께하고 있는</span>&nbsp;<span>파트너를 소개합니다!</span></h2>
+                <div class="sub-text"><span>많은 매장들이 오디를 통해 ​무료로</span>&nbsp;<span>디지털 메뉴판을 사용하고 있으며,</span><span>매장 수입 이외에 추가 수입을 얻고 있습니다!</span></div>
+                <ng-container *ngFor = "let info of PartnerList; let i = index">
+                    <h3><span class="green-text">{{info.guName}}</span> 파트너 매장</h3>
+                            <div class="partner-introduce-slider" #pane [id] = '"partner" + i' >
+                                <ng-container *ngFor="let partner of info.partnerInfos">
+                                    <div class="partner-list" >
+                                        <div class="p-box">
+                                            <img [src]="partner.imagePath" alt="매장이미지" *ngIf="partner.imagePath != null">
+                                            <img src="assets/images/img-req-03.png" alt="매장이미지" *ngIf="partner.imagePath == null">
+                                        </div>
+                                        <span>{{partner.mallName}}</span>
+                                    </div>
+                                </ng-container>
+                            </div>
+                </ng-container>
+            </div>
+        </section>
+    </div>
+</main>

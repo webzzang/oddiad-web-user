@@ -1,0 +1,253 @@
+<form role="form" #target="ngForm">
+  <section class="store">
+    <div class="serction-wrap">
+      <h2>지하철</h2>
+      <div class="tb-01 store-01">
+        <div class="row-02">
+          <div><span>신청기간</span></div>
+          <div class="col-start">
+            <span>시작일</span>
+            <app-datepk (selectDate)="selectDate($event)"
+                        [date]="vo.startDate" required="true" name="startDate"
+                        [max]="maxDate" [min]="" ></app-datepk>
+            <span>부터</span>
+            <div class="select-box-type1">
+              <select class="base-form" (change)="monthChange()"
+                      required="true"
+                      name="month"
+                      [(ngModel)]="month">
+                <option ngSelected="$first"  *ngFor="let month of utils.numberToArray(subwayAdvMaxDate); let i = index"
+                        [ngValue]="i+1">{{ i+1 }}개월
+              </select>
+            </div>
+            <span>{{vo.endDate}} 까지</span>
+          </div>
+        </div>
+        <hr>
+        <div class="row-02">
+          <div><span class="">지하철광고슬롯</span></div>
+          <div class="col-1">
+            <ng-container *ngFor="let partner of partnerList; let k = index">
+              <input type="hidden" [value]="partner.partnerSeq" name="partnerSeq" required="true" >
+              <div class="col-start new-layout-2">
+                <div class="col-start-01">
+                  <span class="store-name" >{{partner.mallName}}</span>
+                </div>
+                <div class="col-start-02">
+                  <div class="select-box-type1 w100">
+                    <select class="base-form"
+                            required="true" name="requestSlot_{{k}}" [(ngModel)]="partner.requestSlot">
+                      <option *ngFor="let slot of partner.slotArray; let i = index"
+                              [value]="slot">{{ slot }}개 슬롯
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <span class="slot-text">(슬롯당 월 {{partner.slotPrice  | stringFormatPipe:{type: 'comma'} }}원)</span>
+            </ng-container>
+          </div>
+        </div>
+        <hr>
+        <div class="row-02 ap-50">
+          <div><span>광고 제목</span></div>
+          <div><input type="text" class="base-form dab" placeholder="광고 제목을 입력해 주세요"
+                      required="true"
+                      name="title"
+                      [(ngModel)]="vo.title"></div>
+        </div>
+        <div class="row-02 ap-50">
+          <div><span>광고 업종</span></div>
+          <div>
+            <div class="select-box-type1 w100">
+              <select class="base-form" [(ngModel)]="vo.businessTypeCode"
+                      required="true"
+                      name="businessTypeCode">
+                <option *ngFor="let code of codeList; let i = index" [value]="code.code">{{code.name}}</option>
+              </select>
+            </div>
+            <!-- 20211219 div 수정 인풋폼이 추가될때 -->
+            <input  type="text" class="base-form plus-form"
+                    *ngIf="vo.businessTypeCode == 'BST016'"
+                    placeholder="기타 업종명을 입력해 주세요"
+                    required="true"
+                    name="etcBusinessName"
+                    [(ngModel)]="vo.etcBusinessName">
+          </div>
+        </div>
+        <hr>
+        <div class="row-02 ap-50"  *ngIf="designRequest">
+          <div><span>디자인 제작</span></div>
+          <div>
+            <div class="select-box-type1 w100">
+              <select class="base-form" [(ngModel)]="vo.designRequest"
+                      required="true"
+                      name="designRequest" >
+                <option value="true">디자인 제작 요청</option>
+                <option value="false" >디자인 직접 제작</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row-02">
+          <div><span>디자인 파일 등록</span></div>
+          <div class="col-1">
+            <div class="col-start d-block">
+              <strong>디자인 파일을 등록하세요</strong>
+              <span class="sm-text-2">광고 디자인 파일 형식은 이미지(JPG, PNG) 파일 최대 6개까지 / 동영상 1개 까지만 등록 가능합니다.</span>
+            </div>
+            <div class="col-start d-block">
+              <span class="up-load" (click)="imgFileInput.click()">이미지 업로드</span>
+              <input type="file" #imgFileInput (change)="fileChange($event.target.files, 'img')"
+                     style="display: none;"
+                     accept="image/jpeg, image/png" multiple>
+              <span class="up-load" (click)="videoFileInput.click()">동영상 업로드</span>
+              <input type="file" #videoFileInput (change)="fileChange($event.target.files, 'video')"
+                     style="display: none;"
+                     accept="video/mp4, video/avi, video/mov">
+              <span class="up-load" (click)="openMustadPopDialog()">머스타드 템플릿 가져오기</span>
+            </div>
+          </div>
+        </div>
+
+        <!--파일추가-->
+        <div cdkDropList (cdkDropListDropped)="dragFile($event)">
+          <div class="file-wrap" *ngFor="let f of fileList" cdkDrag>
+            <div class="label-file">
+              <span class="file-img-bg" style="background-image:url('{{f.path}}');cursor: pointer"(click)="imgClick(f.type,f.path)"></span>
+              <span class="file-name" >
+                <span *ngIf="f.type == 'MUSTAD'">{{f.name}}</span>
+                <span *ngIf="f.type != 'MUSTAD'"  (click)="fileDownload(f.fileSeq, f.name)" style="cursor:pointer">{{f.name}}</span>
+                <i class="file-del"  *ngIf="f.type != 'AFT002'" (click)="deleteFile(i, f)"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+        <hr>
+        <div class="row-02 no-wrap">
+          <div><span>회원정보</span></div>
+          <div class="col-1">
+            <div class="col-start">
+          <span class="radio-box">
+              <input type="radio" class="radio-btn" name="radio"
+                     id="sam-01"
+                     [(ngModel)]="vo.code" value="BCT003"/>
+              <label for="sam-01">개인</label>
+          </span>
+              <span class="radio-box">
+              <input type="radio" class="radio-btn" name="radio"
+                     id="sam-02"
+                     [(ngModel)]="vo.code" value="BCT002" (change)="memberChange('P')"/>
+              <label for="sam-02">개인사업자</label>
+          </span>
+              <span class="radio-box">
+            <input type="radio" class="radio-btn" name="radio"
+                   id="sam-03"
+                   [(ngModel)]="vo.code" value="BCT001" (change)="memberChange('C')"/>
+            <label for="sam-03">법인사업자</label>
+          </span>
+            </div>
+            <div class="col-start">
+              <div class="col-start-01"><span class="im">이름</span></div>
+              <div class="col-start-02"><span>{{memberInfo.regName}}</span></div>
+            </div>
+            <div class="col-start">
+              <div class="col-start-01"><span class="im">이메일</span></div>
+              <div class="col-start-02"><span>{{memberInfo.memberId}}</span></div>
+            </div>
+            <div class="col-start">
+              <div class="col-start-01"><span class="im">휴대전화번호</span></div>
+              <div class="col-start-02"><span>{{myInfo.phoneNumber | stringFormatPipe:{type: 'phone'} }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <ng-container *ngIf="vo.code != 'BCT003'">
+          <div class="row-02">
+            <div><span>사업자 정보</span></div>
+            <div class="col-1">
+              <div class="col-start new-layout-2">
+                <div class="col-start-01"><span
+                    class="im">{{vo.code == 'BCT002' ? '상호명' : '회사명'}}</span></div>
+                <div class="col-start-02"><input type="text" class="base-form"
+                                                 placeholder="{{vo.code == 'BCT002' ? '상호명' : '회사명'}}을 입력하세요"
+                                                 required="true"
+                                                 name="companyName"
+                                                 [(ngModel)]="memberInfo.companyName"></div>
+              </div>
+              <div class="col-start new-layout-2">
+                <div class="col-start-01"><span
+                    class="im">{{vo.code == 'BCT002' ? '사업자명' : '대표자명'}}</span></div>
+                <div class="col-start-02"><input type="text" class="base-form"
+                                                 placeholder="{{vo.code == 'BCT002' ? '사업자명' : '대표자명'}}을 입력하세요"
+                                                 required="true"
+                                                 name="ceo"
+                                                 [(ngModel)]="memberInfo.ceo"></div>
+              </div>
+              <div class="col-start new-layout-2">
+                <div class="col-start-01"><span class="im">사업자등록번호</span></div>
+                <div class="col-start-02"><input type="text" class="base-form"
+                                                 placeholder="사업자등록번호를 입력하세요"
+                                                 required="true"
+                                                 [textMask]="{mask: Constants.MASK.businessNumber}"
+                                                 name="businessLicenseNumber"
+                                                 [(ngModel)]="memberInfo.businessLicenseNumber">
+                </div>
+              </div>
+              <div class="col-start new-layout-2">
+                <div class="col-start-01"><span class="im">사업자등록증</span></div>
+                <div class="col-start-02">
+                  <div class="form-box-np btn-width">
+                    <input type="text" class="base-form" (click)="file.click()"
+                           placeholder="사업자등록증 (JPG, PNG 파일)" readonly [(ngModel)]="bizFileInfo.originName" name="bizFileName" required="true">
+                    <button type="button" class="base-form btn-04" (click)="file.click()">등록
+                    </button>
+                    <input style="display:none;" type="file" #file accept="image/jpeg, image/png"
+                           (change)="bizFileChange($event.target.files)">
+                  </div>
+                </div>
+              </div>
+              <label class="label-file ml-80"
+                     *ngIf="bizFileInfo.originName != null"
+                     (click)="fileDownload(bizFileInfo.fileSeq, bizFileInfo.originName)" style="cursor:pointer">
+                <span>{{bizFileInfo.originName}}</span><i class="file-del" (click)="deleteBizFile()"></i>
+              </label>
+            </div>
+          </div>
+          <hr>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+  <div class="bottom-btn-wrap st">
+    <div>
+      <div class="under-chk" *ngFor="let t of termsList ; let i = index">
+        <ng-container *ngIf="t.required">
+          <div class="a1" >
+            <input type="checkbox" id="{{t.code}}" class="checkbox-btn"
+                   required="true"
+                   [(ngModel)]="t.checked"
+                   [name]="t.code"/>
+            <label for="{{t.code}}"></label>
+          </div>
+          <span class="text-1"><a (click)="openTermFormDialog(t.seq)">{{t.name}}</a> 내용을 모두 확인하였습니다.</span>
+          <span class="text-1 red-text">(필수)</span>
+        </ng-container>
+        <ng-container *ngIf="!t.required">
+          <div class="a1" >
+            <input type="checkbox" id="{{t.code}}" class="checkbox-btn"
+                   [(ngModel)]="t.checked"
+                   [name]="t.code"/>
+            <label for="{{t.code}}"></label>
+          </div>
+          <span class="text-1"><a (click)="openTermFormDialog(t.seq)">{{t.name}}</a> 내용을 모두 확인하였습니다.</span>
+          <span class="text-1">(선택)</span>
+        </ng-container>
+      </div>
+    </div>
+    <button type="button" class="btn-01" [disabled]="target.form.invalid" (click)="save()">심사 신청하기</button>
+  </div>
+</form>

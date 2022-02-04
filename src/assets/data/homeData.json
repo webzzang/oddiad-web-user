@@ -1,0 +1,40 @@
+{
+    "data": [
+      {
+        "title": "라라텔레콤",
+        "subTitle": "가로수길 통신매장",
+        "imagePath": "../../../assets/images/img-ptn-01.png"
+      },
+      {
+        "title": "커피온리",
+        "subTitle": "역삼역 커피집v",
+        "imagePath": "../../../assets/images/img-ptn-02.png"
+      },
+      {
+        "title": "짝짝포차",
+        "subTitle": "압구정 로데오거리",
+        "imagePath": "../../../assets/images/img-ptn-03.png"
+      },
+      {
+        "title": "어게인 리프레쉬",
+        "subTitle": "신사동 샐러드 전문점",
+        "imagePath": "../../../assets/images/img-ptn-04.png"
+      },
+      {
+        "title": "수리다라",
+        "subTitle": "압구정 이자카야",
+        "imagePath": "../../../assets/images/img-ptn-05.png"
+      },
+      {
+        "title": "신비속눈썹",
+        "subTitle": "선릉역 속눈썹",
+        "imagePath": "../../../assets/images/img-ptn-06.png"
+      },
+      {
+        "title": "웰빙마트",
+        "subTitle": "대청역 대단지 중심마트",
+        "imagePath": "../../../assets/images/img-ptn-07.png"
+      }
+    ]
+
+}

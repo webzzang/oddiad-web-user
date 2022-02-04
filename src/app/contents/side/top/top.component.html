@@ -1,0 +1,37 @@
+<header (window:scroll)="onWindowScroll($event)"
+        [ngClass]="{'scroll' : scroll , 'scroll-important' : !home  }">
+  <div class="header-wrap">
+    <h1 [routerLink]="['/']" style="cursor: pointer">오디</h1>
+    <nav class="main-nav">
+      <ul>
+        <li><a routerLink="/live" [class.on]="router.isActive('/live', true)">오디라이브</a></li>
+        <li><a [routerLink]="['/zone']" [class.on]="router.isActive('/zone', true)">오디존</a></li>
+        <li><a [routerLink]="['/subway']" [class.on]="router.isActive('/subway', true)">지하철</a></li>
+        <li><a [routerLink]="['/partnership']" [class.on]="router.isActive('/partnership', true)">파트너신청</a>
+        </li>
+        <li><a [routerLink]="['/faq']" [class.on]="router.isActive('/faq', true)">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <span class="top-dropdown" *ngIf="!login" #topDropdown>
+      <button class="btn_tnb_all" [routerLink]="['/login']">로그인</button>
+      <button class="btn_tnb_all" [routerLink]="['/account/register']">회원가입</button>
+    </span>
+
+    <span class="top-dropdown" *ngIf="login" #topDropdown>
+      <!-- 로그인 후 메뉴 -->
+        <button class="btn_tnb dropdown-toggle" #dropdownToggle #btn_tnb (click)="droupDown($event)"><span class="hide">메뉴</span></button>
+        <button class="btn_tnb_pc dropdown-toggle" #dropdownToggle #btn_tnb (click)="droupDown($event)">
+          <span [ngClass]="{new: newNotice.mypageAlarm == true}">마이페이지</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a [routerLink]="['/mypage/oddi-list']"><span [ngClass]="{new: newNotice.oddiMngAlarm == true}">오디 관리</span></a></li>
+          <li><a [routerLink]="['/mypage/bill-list']"><span>결제 내역</span></a></li>
+          <li><a [routerLink]="['/mypage/myAccount']"><span>회원 정보 수정</span></a></li>
+          <li><a [routerLink]="['/mypage/changePassword']"><span>비밀번호 변경</span></a></li>
+          <li><a [routerLink]="['/mypage/inquire-list']"><span [ngClass]="{new: newNotice.inquireAlarm == true}">1:1 문의</span></a></li>
+          <li><a (click)="logout()">로그아웃</a></li>
+        </ul>
+    </span>
+  </div>
+</header>

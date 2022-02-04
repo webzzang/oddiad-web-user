@@ -1,0 +1,50 @@
+<main>
+  <div class="main-wrap">
+
+    <section class="mypage">
+      <div class="serction-wrap">
+        <h2>1:1문의</h2>
+        <div class="table-top">
+          <span class="writing-button"  [routerLink]="['/mypage/inquire-form']">글쓰기</span>
+        </div>
+        <div class="table-wrap">
+          <table class="table02 question-all">
+            <colgroup>
+              <col style="width: 10%;" />
+              <col style="width: 15%;" />
+              <col />
+              <col style="width: 15%;" />
+              <col style="width: 15%;" />
+              <col style="width: 15%;" />
+            </colgroup>
+            <thead>
+            <tr>
+              <th>번호</th>
+              <th>문의유형</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일</th>
+              <th>답변여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor ="let data of dataList; let i = index;" (click)="detail(data.seq)">
+              <td class="fw700">{{pageTotal - i}}</td>
+              <td class="fw700">{{data.inquiryTypeName}}</td>
+              <td class="fw700 t-left">{{data.title}}</td>
+              <td class="fw700">{{data.name}}</td>
+              <td class="fw700">{{data.regDate}}</td>
+              <td class="fw700">{{data.isAnswer}}</td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="end-button t-center" >
+          <button type="button" class="btn-05 plus-m w200" (click)="getInquireList()" *ngIf="pages != 1">더보기</button>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</main>

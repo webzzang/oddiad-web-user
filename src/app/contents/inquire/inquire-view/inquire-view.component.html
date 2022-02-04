@@ -1,0 +1,33 @@
+<section class="notice">
+  <div class="serction-wrap">
+    <h2>1:1문의</h2>
+    <div class="table-wrap">
+      <div class="table-detail">
+        <div class="thead">
+          <div class="thead-title">[{{vo.inquiryTypeName}}] {{vo.title}}</div>
+          <time>{{vo.regDate}}</time>
+        </div>
+        <div class="tbody">
+          <!-- <video autoplay controls loop muted poster="images/no-live.png">
+              <source src="" type="">
+          </video> -->
+          <p>
+            {{vo.contents}}
+          </p>
+        </div>
+        <div class="under-board">
+          <label class="label-file" *ngFor="let img of vo.imageList">
+            <img [src]="img.path" alt="메인비주얼1" *ngIf="img.contentType.indexOf('image') == 0">
+            <span (click)="fileDownload(img.seq, img.name)" style="cursor:pointer">{{img.name}}</span>
+          </label>
+        </div>
+        <div class="under-textarea">
+          <textarea rows="7" [value]="vo.answer ? vo.answer : '답변 대기중입니다.'" readonly></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="end-button t-right">
+      <button type="button" class="btn-01 w200" *ngIf="seq != null && isLogin && vo.answer === null" (click)="modify()">수정</button>
+    </div>
+  </div>
+</section>

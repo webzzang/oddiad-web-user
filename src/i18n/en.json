@@ -1,0 +1,138 @@
+{
+  "common" : {
+    "home" : "Home",
+    "yes" : "Yes",
+    "no" : "No",
+    "confirm" : "Confirm",
+    "register" : "Register",
+    "img-size-recommend" : "(horizontally 984 X vertically 540 pixel image)",
+    "save" : "Save",
+    "modify" : "Modify",
+    "cancel" : "Cancel",
+    "reservation-cancel" : "Reservation Cancel",
+    "delete" : "Delete",
+    "choose" : "choose",
+    "new" :  "New",
+    "division" : "Division",
+    "register-success" : "You are registered",
+    "modify-success" : "It is changed.",
+    "list" : "List",
+    "add" : "Add",
+    "setting" : "Setting",
+    "region" : "Region",
+    "area" : "Area",
+    "zone" : "Zone",
+    "floor" : "Floor",
+    "memo" : "Memo",
+    "reg-date" : "Registration date",
+    "info-ment" : "Please register the corresponding item",
+    "del-confirm-msg" : "Delete the selected item.<br>Deleted items are permanently deleted.<br>Are you sure you want to delete?",
+    "del-ok" : "Successful deletion.",
+    "del-fail" : "Error occurred while deleting.",
+    "del-chk-key" : "Please select an item to delete.",
+    "save-ok": "Save is complete",
+    "save-fail": "An error occurred while saving.",
+    "udt-ok" : "Successful modification.",
+    "udt-fail" : "An error occurred during the modification.",
+    "ist-ok" : "Successful registration.",
+    "ist-fail" : "An error occurred during registration.",
+    "apr-confirm-msg" : "Change the status to approved. <br>Do you really want to approve?",
+    "apr-ok" : "Approved successfully.",
+    "apr-fail" : "An error occurred during approval.",
+    "apr-chk-key" : "Please select an item to approve.",
+    "can-confirm-msg" : "Cancel the selected reservation. <br>A canceled reservation cannot be recovered. <br>Do you really want to cancel?",
+    "can-ok" : "Canceled successfully.",
+    "can-fail" : "An error occurred while canceling.",
+    "can-chk-key" : "Please select an item to cancel.",
+    "send-ok" : "Successfully sent.",
+    "send-fail" : "An error occurred while sending.",
+    "past-time" : "It cannot be transferred when time has already passed.",
+    "use-yn" : "Using",
+    "use": "Use",
+    "not-use": "Not use",
+    "agreement": "Agreement",
+    "opposition": "Opposition",
+    "total" : "Total",
+    "approval" : "Approval",
+    "plz-enter" : "Please enter",
+    "language" : "Change Language",
+    "select-complete" : "Select complete",
+    "image-size-error" : "Only one image can be registered, and no images greater than 10 MB can be registered.",
+    "message" : {
+      "complete" : {
+        "create" : "Registration is completed.",
+        "update" : "Modifications have been completed.",
+        "delete" : "Deletion completed.",
+        "cancel" : "Cancelation completed."
+      },
+      "error" : "An error occurred while processing the requested operation.",
+      "auth-code" : "There is no access authentication code.",
+      "session-expiration": "Session Expiration. Go to Login.",
+      "change permissions": "Change Permissions. Go to Login",
+      "not-found-entrance": "Not found entrance",
+      "maximum-reservations" : "Maximum number of reservations exceeded"
+    },
+    "time" : {
+      "half" : "Half hour",
+      "hour" : "{{value}} Hour",
+      "hour-half" : "{{value}} Hour 30 minutes"
+    },
+    "excel" : {
+      "excel-bt" : "Download Excel",
+      "energy-excel-bt" : "일별 사용량 엑셀다운로드",
+      "err" : "엑셀 다운로드 중 오류가 발생하였습니다.",
+      "message" : {
+        "info" : "개인정보 보호를 위하여 엑셀 파일에 암호를 적용합니다. 영문/숫자/특수문자 조합으로 9자리 이상으로 설정하시길 권장합니다.",
+        "no-password-chk" : "암호 확인을 입력해 주세요.",
+        "no-match" : "암호가 일치하지 않습니다.",
+        "no-password" : "암호를 입력해 주세요.",
+        "excel-pwd" : "엑셀 파일 암호",
+        "excel-pwd-chk" : "암호 확인",
+        "excel-pwd-placeholder" : "암호 확인 입력",
+        "excel-pwd-chk-placeholder" : "엑셀 파일 암호 입력"
+      }
+    },
+    "hour" : "Hour",
+    "personal-info-setting" : "Personal info",
+    "change-pwd" : "Change Pwd",
+    "change-lang" : "Change lang",
+    "analytics" : "Analytical tool",
+    "logout" : "Logout",
+    "name" : "",
+    "search-date" : "Search is limited to three months.",
+    "select-all" : "select all",
+    "search-type" : "search type",
+    "search-type-placeholder" : "Select search type",
+    "last-save-time" : "Last Save Date",
+    "empty" : "empty",
+    "data-empty" : "No data found."
+  },
+  "error": {
+    "no-page" : "페이지를 찾을 수 없습니다.",
+    "no-page-msg1" : "페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.",
+    "no-page-msg2" : "확인 후 다시 시도해 주시기 바랍니다.",
+    "no-page-msg3" : "지속적인 문제가 발생시 관리자(02-783-4511)에게 문의 바랍니다.",
+    "go-main" : "첫화면으로"
+  },
+  "menu" : {
+    "MENU001000" : "Dashboard"
+  },
+  "member": {
+    "title": "Member",
+    "menu-title": "Member Manage"
+  },
+  "service": {
+    "title" : "Service Operation Management"
+  },
+  "charge" : {
+    "menu-title" : "Service Fee Setting"
+  },
+  "login" : {
+    "fail" : {
+      "info" : "Login failed",
+      "lock" : "long-term unused",
+      "block" : "Account lockout",
+      "temp-pwd" : "Please change the temporary password"
+    }
+  }
+}

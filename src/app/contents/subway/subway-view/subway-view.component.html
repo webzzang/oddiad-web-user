@@ -1,0 +1,154 @@
+<!-- sub main 이미지영역 -->
+<section class="main-img">
+  <img src="assets/images/img-ptn-visual-2.png" alt="서브메인이미지">
+  <div>
+    <strong><span>서울 핵심 지하철역의 디스플레이 광고<br>비싼 지하철 역사 내 광고,</span><span>오디에서는 하루 1만원!</span></strong>
+    <p><span>주요 22개 지하철역 디스플레이를 선택하여 </span> <span>광고를 진행할 수 있습니다.</span></p>
+  </div>
+</section>
+<section class="subway-videos">
+  <div class="serction-wrap">
+    <h2>지하철</h2>
+    <div class="flex-center">
+      <div #videoDiv class="col-70">
+        <iframe *ngIf="curYoutubeVodUrl"
+                width="100%" [height]="videoHeight"
+                [src]="curYoutubeVodUrl | safe"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <video *ngIf="!curYoutubeVodUrl" width="100%"
+               poster="assets/images/no-live.png"></video>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="subway-videos-2">
+  <div class="serction-wrap">
+    <div class="subway-slider" #subwaySlider>
+      <ng-container *ngFor="let subway of subwayNameList;let i = index">
+      <div class="subway-list">
+        <!-- p-circle-line-2 (2호선입니다) -->
+        <div class = "{{subway.subwayCodeList[0]}}" [ngClass]="subway.checked ? 'active':''" (click)="selectSubwaySlider(subway.name, i)" >
+
+          <label class="label-hot" data-title="HOT" *ngIf="subway.badgeCode == 'BDG003'"></label>
+          <label class="label-sold-out" data-title="SOLD OUT" *ngIf="subway.badgeCode == 'BDG001'" ></label>
+          <label class="label-deadline" data-title="마감임박" *ngIf="subway.badgeCode == 'BDG002'"></label>
+          <strong>{{subway.name}}</strong>
+          <!-- line-2 (2호선), line-gong-hwang (공항), line-gyeong-ui (경의중앙) -->
+          <div class="line-wrap">
+            <ng-container *ngFor ="let line of subway.subwayCodeList">
+              <i class="{{line}}_dot"></i>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+      </ng-container>
+    </div>
+  </div>
+</section>
+<section class="subway-info">
+  <div class="serction-wrap">
+    <div class="subway-select-box">
+      <ng-container *ngFor="let list of subwayLineList; let i = index;">
+        <div>
+          <input type="checkbox" id="sub{{i}}" class="check-circle" [ngClass]="list.code" (click)="selectSubwayLine(list.code)" [checked]="list.checked"/>
+          <label for="sub{{i}}"><span>{{list.name}}</span></label>
+        </div>
+      </ng-container>
+
+      <div>
+        <input type="checkbox" id="suball" class="checkbox-btn" (click)="checkAll($event)" [(ngModel)]="chkAll" />
+        <label for="suball"><span>전역사 선택</span></label>
+      </div>
+    </div>
+
+    <div class="sub-item-box" *ngFor="let partner of subwayPartnerList;let i = index">
+      <div class="col-60 flex-between-col">
+        <div>
+          <input type="checkbox" id="item-{{i}}" class="item-chk" [(ngModel)]="partner.checked" (change)="chkAll = false" (click)="selectSubwayPartner($event,partner.seq)">
+          <div class="zone-item">
+            <div class="top-title">
+              <div class="top-item-title">
+                <!-- 여기 label for="item-01" -->
+                <label for="item-{{i}}" class="item-chk-box"><span class="new-chk"></span><span class="b-title">{{partner.mallName}}</span></label>
+                <span class="location-info">{{partner.summary}}</span>
+
+                <label class="label-hwan" data-title="환승" *ngIf="partner.subwayLineList.length > 1"></label>
+                <label class="label-hot" data-title="HOT" *ngIf="partner.badgeCode == 'BDG003'"></label>
+                <label class="label-sold-out" data-title="SOLD OUT" *ngIf="partner.badgeCode == 'BDG001'" ></label>
+                <label class="label-deadline" data-title="마감임박" *ngIf="partner.badgeCode == 'BDG002'"></label>
+
+              </div>
+              <!-- <i class="book-mark on"></i> -->
+            </div>
+            <div class="item-info-new-3">
+              <div class="it3">
+                <p>
+                  {{partner.description}}
+                </p>
+                <div class="sub-line">
+                  <ng-container *ngFor ="let line of partner.subwayLineList">
+                    <span class="subway-label sline-{{line.code}}">{{line.name}}</span>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="img-wrap" (click)="imgClick('img',partner.seq)">
+                <img *ngIf="partner.subwayImageList.length != 0" [src]="partner.subwayImageList[0].path" alt="매장이미지">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-60">
+        <div class="item-info-table">
+          <div>
+            <span>광고 화면</span>
+            <span>{{partner.display}}</span>
+          </div>
+          <div>
+            <span>광고 위치</span>
+            <span>{{partner.location}}   <a class="link-tab"  style="cursor: pointer" (click)="imgClick(null,partner.seq)">위치 확인</a></span>
+          </div>
+          <div>
+            <span>1회 광고 노출 시 노출 시간</span>
+            <span>슬롯당 {{partner.slotVideoTime}}초</span>
+          </div>
+          <div>
+            <span>운영 시간</span>
+            <span><time>{{partner.operationStartTime}} ~ {{partner.operationEndTime}}</time>
+              <br> (지하철 영업시간 내)</span>
+          </div>
+          <div>
+            <span>운영 광고 슬롯</span>
+            <span>{{partner.totalSlot}}개 슬롯</span>
+          </div>
+          <div>
+            <span>컨텐츠 종류</span>
+            <span>이미지,동영상</span>
+          </div>
+          <div>
+            <span>금액</span>
+            <span>슬롯당 월 {{partner.slotPrice | stringFormatPipe:{type:'comma'} }}원<br> (무약정, 1개월 단위 계약, VAT별도)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<!--  <div class="serction-2">
+    <h3>지하철 광고 사례</h3>
+    <div class="flex-center">
+
+      <div class="col-70">
+        <video autoplay controls loop muted poster="assets/images/no-live.png">
+          <source src="" type="">
+
+        </video>
+      </div>
+    </div>
+  </div>-->
+</section>
+<div class="bottom-btn-wrap">
+  <button type="button" class="btn-04" (click)="openHistoryPopDialog()">이전광고 불러오기</button>
+  <button type="button" class="btn-01" (click)="openSubwayForm()">광고 신청하기</button>
+</div>

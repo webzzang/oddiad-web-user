@@ -1,0 +1,6 @@
+<main>
+    <div class="main-wrap">
+        <app-notice-list (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.LIST}"></app-notice-list>
+        <app-notice-form #noticeList [num]="num" (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.FORM}" *ngIf="pageViewType == pageType.FORM"></app-notice-form>
+    </div>
+</main>

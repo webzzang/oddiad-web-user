@@ -1,0 +1,222 @@
+<!-- sub main 이미지영역 -->
+<section class="main-img">
+  <img src="assets/images/img-ptn-visual.png" alt="서브메인이미지">
+  <div>
+    <strong><span>서울 중심가 매장의</span>&nbsp;<span>디스플레이 광고</span></strong>
+    <p><span>오디AD에서는 하루 1500원에 카페, 식당, 대리점 등</span>&nbsp;<span>자유롭게 선택하여 광고를 진행할 수 있습니다.</span></p>
+    <p><span>현재 강남, 서초의 20여개 매장에서 광고를 진행 중이고</span>&nbsp;<span>빠르게 매장을 확대하고 있습니다.</span></p>
+  </div>
+</section>
+<section class="od-mapz">
+  <div class="serction-wrap">
+    <h2>오디 존</h2>
+    <div class="flex-center">
+      <div #videoDiv class="col-70">
+        <iframe *ngIf="curYoutubeVodUrl"
+                width="100%" [height]="videoHeight"
+                [src]="curYoutubeVodUrl | safe"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <video *ngIf="!curYoutubeVodUrl"  poster="assets/images/no-live.png"></video>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="od-map">
+  <div class="serction-wrap">
+    <div class="od-zone">
+      <div class="col-80">
+        <div class="api-map map" id="map">
+
+          여기에 지도 api를 삽입합니다.
+        </div>
+      </div>
+      <div class="col-40 od-zone-info">
+        <div id="tab-z" class="tab-zone">
+          <ul class="p15-box tab-k">
+            <li><a [ngClass]="tab == 1 ? 'active' : '' " data-tab="tab-1"
+                   (click)="tagClick(1, 'tag')">매장</a></li>
+            <li><a [ngClass]="tab == 2 ? 'active' : ''" data-tab="tab-2" (click)="tagClick(2, 'tag')">묶음
+              상품</a></li>
+          </ul>
+
+          <div *ngIf="tab == 1" id="tab-1">
+            <div class="p15-box">
+              <div class="search-with">
+                <input type="text" class="base-form" placeholder="장소,주소 검색" [(ngModel)]="searchText" (keyup.enter)="tagClick('', 'search')">
+                <button type="button" class="search-icon-button" (click)="tagClick('', 'search')"></button>
+              </div>
+            </div>
+
+            <div class="No-results" *ngIf="partnersLength <= 0">
+              <i class="warning-icon"></i>
+              <span>검색 결과가 없어요.</span>
+            </div>
+
+            <div class="top-unit" *ngIf="partnersLength != 0" ><span class="unit" data-unit="개">{{cnt}}</span><span>선택</span></div>
+            <div class="zone-item-list" *ngIf="partnersLength != 0">
+              <!-- item -1 -->
+              <ng-container *ngFor="let partner of partners">
+                <div class="item-box" id="tab1_{{partner.seq}}">
+                  <!-- checkbox id 와(id="item-01") 아래 label for 의 이름과 같아야 합니다.  -->
+                  <input type="checkbox" id="item_{{partner.seq}}" class="item-chk"
+                         [(ngModel)]="partner.checked" (click)="isChecked($event, partner.seq)">
+                  <div class="zone-item">
+                    <div class="top-title">
+                      <div class="top-item-title">
+                        <!-- 여기 label for="item-01" -->
+                        <label for="item_{{partner.seq}}" class="item-chk-box"><span
+                            class="new-chk"></span><span class="b-title">{{partner.mallName}}</span></label>
+                        <span class="location-info">{{partner.summary}}</span>
+                        <label *ngIf="partner.badgeCode == 'BDG001'" class="label-sold-out"
+                               data-title="soldout"></label>
+                        <label *ngIf="partner.badgeCode == 'BDG003'" class="label-hot"
+                               data-title="HOT"></label>
+                        <label *ngIf="partner.badgeCode == 'BDG002'" class="label-deadline"
+                               data-title="마감임박"></label>
+                      </div>
+                      <!-- <i class="book-mark on"></i> -->
+                    </div>
+                    <div class="item-info-new">
+                      <p>
+                        {{partner.description}}
+                      </p>
+                      <div class="img-wrap" (click)="imgClick('partner',partner.seq)">
+                        <img src="{{partner.path}}" alt="매장이미지">
+                      </div>
+                    </div>
+                    <div class="item-info-table">
+                      <div>
+                        <span>광고노출시간</span>
+                        <span>슬롯당 {{partner.slotVideoTime}}초 /  {{partner.operationWeek}}<br>
+                          <time>{{partner.operationStartTime}} ~ {{partner.operationEndTime}}</time></span>
+                      </div>
+                      <div>
+                        <span>1일 노출 횟수</span>
+                        <span>{{partner.dayExpoCount}}회</span>
+                      </div>
+                      <div>
+                        <span>운영 광고 슬롯</span>
+                        <span>{{partner.totalSlot}}개 슬롯</span>
+                      </div>
+                      <div>
+                        <span>컨텐츠 종류</span>
+                        <span>이미지, 동영상</span>
+                      </div>
+                      <div>
+                        <span>금액</span>
+                        <span>월 {{partner.slotPrice | stringFormatPipe:{type: 'comma'} }}원<br>(무약정, 1개월 단위 계약, VAT별도)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div *ngIf="tab == 2" id="tab-2">
+
+            <div class="No-results" *ngIf="productLength <= 0">
+              <i class="warning-icon"></i>
+              <span>검색 결과가 없어요.</span>
+            </div>
+
+            <div class="bundle-box" *ngIf="productLength != 0">
+              <div class="select-box-type1 w100p">
+                <select [(ngModel)]="productSeq" (change)="productChange()">
+                  <option *ngFor="let product of productPartners; let i = index"
+                          [value]="product.productSeq"
+                          [label]="product.name"
+                  >
+                  </option>
+                </select>
+              </div>
+              <ng-container *ngFor="let product of productPartners; let i = index">
+                <div class="item-info-new-2" *ngIf="product.productSeq == productSeq">
+                  <p>{{product.description}}</p>
+                  <div class="img-wrap" (click)="imgClick('product', null)">
+                    <img src="{{product.partnerList[0].path}}" alt="매장이미지">
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+<!--
+            <div class="top-unit" *ngIf="productLength != 0"><span class="unit" data-unit="개" >{{cnt}}</span><span>선택</span></div>
+-->
+            <div class="zone-item-list" *ngIf="productLength != 0">
+              <ng-container *ngFor="let product of productPartners; let i = index">
+                <ng-container *ngIf="product.productSeq == productSeq">
+                  <div class="item-box" id="tab2_{{product.productSeq}}">
+                    <!-- checkbox id 와(id="tab-item-02") 아래 label for 의 이름과 같아야 합니다.  -->
+                    <input type="checkbox" id="bun_{{product.productSeq}}" class="item-chk"
+                           [(ngModel)]="product.checked"
+                           (change)="isCheckedProduct($event, product.productSeq)"
+                           hidden
+                    >
+                    <div class="zone-item">
+                      <div class="top-title-2">
+                        <div class="top-item-title-2">
+                          <!-- 여기 label for="tab-item-02" -->
+                          <ng-container *ngFor="let partner of product.partnerList; let k = index">
+                            <div [ngClass]="k == 0 ? 'title-1' : 'title-2' ">
+                              <ng-container *ngIf="k == 0">
+
+                                <label for="bun_{{product.productSeq}}" class="item-chk-box">
+                                  <span class="new-chk"></span>
+                                  <span class="b-title">{{partner.mallName}}</span>
+                                </label>
+                                <span class="location-info">{{partner.mallName}}</span>
+
+                                <label *ngIf="product.badgeCode == 'BDG001'" class="label-sold-out"
+                                       data-title="soldout"></label>
+                                <label *ngIf="product.badgeCode == 'BDG003'" class="label-hot"
+                                       data-title="HOT"></label>
+                                <label *ngIf="product.badgeCode == 'BDG002'" class="label-deadline"
+                                       data-title="마감임박"></label>
+                                <!-- <span class="location-info">{{partner.contents}}</span>-->
+                              </ng-container>
+                              <ng-container *ngIf="k != 0">
+                                <span class="b-title-2">{{partner.mallName}}</span>
+                                <span class="location-info">{{partner.mallName}}</span>
+                                <!--<span class="location-info">{{bun.contents}}</span>-->
+                              </ng-container>
+                            </div>
+                          </ng-container>
+                        </div>
+                        <!-- <i class="book-mark"></i> -->
+                      </div>
+                      <div class="item-info-table">
+                        <div>
+                          <span>컨텐츠 종류</span>
+                          <span>이미지, 동영상</span>
+                        </div>
+                        <div>
+                          <span>금액</span>
+                          <span>슬롯당 월 {{product.price | stringFormatPipe:{type: 'comma'} }}원<br>(무약정, 1개월 단위 계약, VAT별도)</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- <div class="serction-2">
+    <h3>오디존 광고 사례</h3>
+    <div class="flex-center">
+
+      <div class="col-70">
+        <video autoplay controls loop muted poster="assets/images/no-live.png">
+          <source src="" type="">
+
+        </video>
+      </div>
+    </div>
+  </div>-->
+</section>
+<div class="bottom-btn-wrap">
+  <button type="button" class="btn-04" (click)="openHistoryPopDialog()">이전광고 불러오기</button>
+  <button type="button" class="btn-01" (click)="openZoneForm()">광고 신청하기</button>
+</div>

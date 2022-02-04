@@ -1,0 +1,139 @@
+{
+  "common": {
+    "home": "홈",
+    "yes": "확인",
+    "no": "취소",
+    "confirm": "확인",
+    "register": "등록",
+    "img-size-recommend": "(가로 984 X 세로 540 픽셀 이미지 권장)",
+    "save": "저장",
+    "modify": "수정",
+    "cancel": "취소",
+    "reservation-cancel": "예약취소",
+    "delete": "삭제",
+    "choose": "선택",
+    "new": "신규",
+    "division": "구분",
+    "register-success": "저장이 완료되었습니다.",
+    "modify-success": "수정이 완료되었습니다.",
+    "list": "목록",
+    "add": "추가",
+    "setting": "설정",
+    "region": "지역",
+    "area": "지점",
+    "zone": "구역",
+    "floor": "층",
+    "memo": "메모",
+    "reg-date": "등록일",
+    "info-ment": "해당 항목을 등록해 주세요",
+    "del-confirm-msg": "선택된 항목을 삭제합니다. <br>삭제된 항목은 영구 삭제됩니다.<br>정말 삭제하시겠습니까?",
+    "del-ok": "성공적으로 삭제되었습니다.",
+    "del-fail": "삭제 중 오류가 발생하였습니다.",
+    "del-chk-key": "삭제할 항목을 선택해주세요.",
+    "save-ok": "저장이 완료되었습니다.",
+    "save-fail": "저장 중 오류가 발생하였습니다.",
+    "udt-ok": "수정이 완료되었습니다.",
+    "udt-fail": "수정 중 오류가 발생하였습니다.",
+    "ist-ok": "저장이 완료되었습니다.",
+    "ist-fail": "등록 중 오류가 발생하였습니다.",
+    "apr-confirm-msg": "상태를 승인 상태로 변경합니다. <br>정말 승인하시겠습니까?",
+    "apr-ok": "성공적으로 승인되었습니다.",
+    "apr-fail": "승인 중 오류가 발생하였습니다.",
+    "apr-chk-key": "승인할 항목을 선택해주세요.",
+    "can-confirm-msg": "선택된 예약을 취소합니다. <br>취소된 예약은 복구가 불가능 합니다. <br>정말 취소하시겠습니까?",
+    "can-ok": "성공적으로 취소되었습니다.",
+    "can-fail": "취소 중 오류가 발생하였습니다.",
+    "can-chk-key": "취소할 항목을 선택해주세요.",
+    "send-ok": "성공적으로 발송되었습니다.",
+    "send-fail": "발송 중 오류가 발생하였습니다.",
+    "past-time": "이미 지나간 시간에는 전송할 수 없습니다.",
+    "use-yn": "사용여부",
+    "use": "사용",
+    "not-use": "미사용",
+    "agreement": "동의",
+    "opposition": "비동의",
+    "total": "전체",
+    "approval": "승인",
+    "plz-enter": "입력해 주세요",
+    "language": "언어 변경",
+    "select-complete": "선택완료",
+    "image-size-error": "이미지는 1개만 등록 가능하고, 10MB이상의 이미지는 등록할 수 없습니다.",
+    "message": {
+      "complete": {
+        "create": "저장이 완료되었습니다.",
+        "update": "수정이 완료되었습니다.",
+        "delete": "삭제를 완료했습니다.",
+        "cancel": "취소를 완료했습니다."
+      },
+      "error": "요청하신 작업을 처리하던 중<br>오류가 발생하였습니다.",
+      "auth-code": "출입 인증 코드가 없습니다.",
+      "session-expiration": "세션이 만료되어 로그인 화면으로 이동합니다.",
+      "change permissions": "권한이 변경되어 로그인 화면으로 이동합니다.",
+      "not-found-entrance": "출입문이 없습니다.",
+      "maximum-reservations": "최대 예약 수를 초과 하였습니다."
+    },
+    "time": {
+      "half": "30분",
+      "hour": "{{value}}시간",
+      "hour-half": "{{value}}시간 30분"
+    },
+    "excel": {
+      "excel-bt": "엑셀다운로드",
+      "energy-excel-bt": "일별 사용량 엑셀다운로드",
+      "err": "엑셀 다운로드 중 오류가 발생하였습니다.",
+      "message": {
+        "info": "개인정보 보호를 위하여 엑셀 파일에 암호를 적용합니다. 영문/숫자/특수문자 조합으로 9자리 이상으로 설정하시길 권장합니다.",
+        "no-password-chk": "암호 확인을 입력해 주세요.",
+        "no-match": "암호가 일치하지 않습니다.",
+        "no-password": "암호를 입력해 주세요.",
+        "excel-pwd": "엑셀 파일 암호",
+        "excel-pwd-chk": "암호 확인",
+        "excel-pwd-chk-placeholder": "암호 확인 입력",
+        "excel-pwd-placeholder": "엑셀 파일 암호 입력"
+      }
+    },
+    "hour": "시",
+    "personal-info-setting": "개인정보설정",
+    "change-pwd": "비밀번호 변경",
+    "change-lang": "언어변경",
+    "analytics": "분석도구",
+    "logout": "로그아웃",
+    "name": "님",
+    "search-date": "검색은 3개월로 제한됩니다.",
+    "select-all": "전체선택",
+    "search-type": "검색구분",
+    "search-type-placeholder": "검색구분을 선택하세요.",
+    "last-save-time": "마지막 저장 일시",
+    "empty": "없음",
+    "data-empty": "데이터가 없습니다."
+  },
+  "error": {
+    "no-page": "페이지를 찾을 수 없습니다.",
+    "no-page-msg1": "페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.",
+    "no-page-msg2": "확인 후 다시 시도해 주시기 바랍니다.",
+    "no-page-msg3": "지속적인 문제가 발생시 관리자(02-783-4511)에게 문의 바랍니다.",
+    "go-main": "첫화면으로"
+  },
+  "menu": {
+    "MENU001000": "Dashboard"
+  },
+  "member": {
+    "title": "회원",
+    "menu-title": "회원관리"
+  },
+  "service": {
+    "title": "서비스 운용 관리"
+  },
+  "charge": {
+    "menu-title": "이용 요금 설정"
+  },
+  "login": {
+    "fail": {
+      "info": "관리자로 등록되지 않은 아이디(E-mail)이거나,\n아이디(E-mail) 또는 비밀번호가 고객정보와 일치하지 않습니다.",
+      "certificationNumber": "잘못된 인증번호 입니다. ",
+      "lock": "장기미사용 계정입니다",
+      "block": "계정이 잠금처리되었습니다",
+      "temp-pwd": "임시 비밀번호로 로그인 하셨습니다.\n비밀번호 변경 후 이용이 가능합니다."
+    }
+  }
+}

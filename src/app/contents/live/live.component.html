@@ -1,0 +1,105 @@
+<main>
+    <div class="main-wrap">
+
+        <section class="od-live">
+            <div class="serction-wrap">
+                <h2>오디 라이브</h2> <!-- <i class="plus-more"></i> -->
+                <div class="od-onair-box">
+                    <div class="col-50 flex-between-col">
+                        <div class="od-onair-2">
+                            <div class="mb30">
+                                <i *ngIf="hasLive"
+                                   class="live-on cursor-pointer"
+                                   (click)="changePlayMode('live')"></i>
+
+                                <i *ngIf="!hasLive"
+                                   class="live-off"></i>
+                            </div>
+                            <ng-container *ngIf="liveList.length > 0">
+                                <div *ngFor="let live of liveList"
+                                     class="live-1 flex-between">
+                                    <span>{{live.title}}</span>
+                                    <time>{{live.operationDay}}</time>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="liveList.length == 0">
+                                <div class="live-1 flex-between">
+                                    <span>라이브가 존재하지 않습니다.</span>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                        <div>
+                            <div><label class="label-normal">* 라이브 시간 외에는 업데이트된 오디존&지하철 영상을 보실 수 있습니다.</label></div>
+                        </div>
+                    </div>
+                    <div #videoDiv class="col-70">
+                        <ng-container *ngIf="'live' == playMode">
+                            <iframe *ngIf="currentLive?.youtubeLiveUrl"
+                                    width="100%" [height]="videoHeight"
+                                    [src]="currentLive.youtubeLiveUrl | safe"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <video *ngIf="!currentLive?.youtubeLiveUrl"
+                                   poster="assets/images/no-live.png"></video>
+                        </ng-container>
+                        <ng-container *ngIf="'normal' == playMode">
+                            <iframe *ngIf="currentVod?.youtubeVodUrl"
+                                    width="100%" [height]="videoHeight"
+                                    [src]="currentVod.youtubeVodUrl | safe"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <video *ngIf="!currentVod?.youtubeVodUrl"
+                                   poster="assets/images/no-live.png"></video>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="od-live-list-wrap">
+            <div class="serction-wrap">
+                <div class="list-top">
+                    <div class="bin"></div>
+                    <ul class="tab-list">
+                        <li [class.on]="!tab.channelType">
+                            <a class="cursor-pointer"
+                                (click)="changeTab('')">전체</a>
+                        </li>
+                        <li [class.on]="'PTT001' == tab.channelType">
+                            <a class="cursor-pointer"
+                                (click)="changeTab('PTT001')">오디존</a>
+                        </li>
+                        <li [class.on]="'PTT002' == tab.channelType">
+                            <a class="cursor-pointer"
+                              (click)="changeTab('PTT002')">지하철</a>
+                        </li>
+                    </ul>
+                    <div class="form-box">
+                        <div class="select-box-type1">
+                            <select [(ngModel)]="vodListOrderName"
+                                    (change)="changeOrder()">
+                                <option value="isNewOrder">최신순</option>
+                                <option value="isOldOrder">오래된순</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-container">
+                    <article *ngFor="let vod of vodList">
+                        <img class="cursor-pointer"
+                             width="220" height="169"
+                             [src]="vod.youtubeThumbnails" (click)="changePlayMode('normal', vod.youtubePlayId)">
+                        <div class="cursor-pointer live-text">
+                            <strong>{{vod.youtubeTitle}}</strong>
+                        </div>
+                        <time>{{vod.youtubeRegDate}}</time>
+                    </article>
+                </div>
+
+                <div class="end-button t-center"  >
+                    <button *ngIf="total != 0" type="button" class="btn-05 plus-m w200" (click)="getVodList()">더보기</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

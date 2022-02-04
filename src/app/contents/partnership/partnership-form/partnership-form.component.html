@@ -1,0 +1,65 @@
+    <form [formGroup]="form" #formDir="ngForm">
+<div class="dim">
+    <div class="pop">
+        <div class="pop-header">
+            <h2>파트너 문의하기</h2>
+            <i class="close" (click)="closeDialog()" style="cursor:pointer"></i>
+        </div>
+            <div class="pop-body pd0">
+                <div class="tb-01">
+                    <div class="row-01">
+                        <div><span class="im">이름</span></div>
+                        <div><input type="text" class="base-form" formControlName="name" placeholder="이름을 입력해 주세요" value="" [(ngModel)]="vo.name" ></div>
+                    </div>
+                    <div class="row-01">
+                        <div><span class="im">휴대전화번호</span></div>
+                        <div><input type="text" class="base-form" formControlName="phoneNumber"
+                                    [(ngModel)]="vo.phoneNumber"
+                                    [textMask]="{mask: Constants.MASK.telephone}"
+                                    placeholder="-없이 입력해 주세요"></div>
+                    </div>
+                    <div class="row-01">
+                        <div><span>지역</span></div>
+                        <div><input type="text" class="base-form" [(ngModel)]="vo.location" placeholder="지역명을 입력해 주세요" formControlName="location"></div>
+                    </div>
+                    <div class="row-01">
+                        <div class=""><span>업종</span></div>
+                        <div>
+                            <div class="select-box-type1 w100p">
+                                <select class="base-form" [(ngModel)]="vo.business" formControlName="business">
+                                    <option disabled>업종을 선택해주세요.</option>
+                                    <ng-container *ngFor="let code of businessCode">
+                                        <option [value]="code.code">{{code.name}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                  <!--  <label class="tb-01-label">(예. 음식점, 카페, 학원, 헬스, 병원, 부동산...)</label>-->
+
+                    <div class="row-01">
+                        <div><span>기타문의사항 (50자)</span></div>
+                        <div><textarea class="" name="textarea" formControlName="contents" [(ngModel)]="vo.contents" rows="4" maxlength="50"></textarea></div>
+                    </div>
+                </div>
+                <div class="under-chk">
+                    <div class="a1">
+                        <input type="checkbox" id="c1" class="checkbox-btn" formControlName="terms"/>
+                        <label for="c1"></label>
+                    </div>
+                    <span class="text-1"><a (click)="openTermDialog('TRM001')">서비스 이용약관</a> 및 <a (click)="openTermDialog('TRM002')">개인정보 처리방침</a> 을 모두 확인하였습니다.</span>
+                </div>
+                <div class="under-chk">
+                    <div class="a1">
+                        <input type="checkbox" id="c2" class="checkbox-btn" formControlName="terms2"/>
+                        <label for="c2"></label>
+                    </div>
+                    <span class="text-1"> <a (click)="openTermDialog('TRM003')">제3자 정보제공 이용 동의</a> 내용을 모두 확인하였습니다.</span>
+                </div>
+            </div>
+            <div class="pop-bottom">
+                <button type="button" class="btn-01 w100p fs1" [disabled]="!form.valid" (click)="add()">접수</button>
+            </div>
+    </div>
+</div>
+    </form>

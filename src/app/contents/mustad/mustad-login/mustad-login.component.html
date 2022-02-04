@@ -1,0 +1,60 @@
+<div class="dim">
+  <div class="pop m-login" *ngIf="viewType == 'login'">
+    <div class="pop-header">
+      <h2>머스타드 로그인</h2>
+      <i class="close" (click)="closeDialog()" style="cursor: pointer"></i>
+    </div>
+    <div class="pop-body pd0">
+      <app-cognito-login style="width: 100%"
+                         (loginSuccessEvent)="loginSuccessEventHandler($event)"></app-cognito-login>
+
+      <div class="sns-wrap">
+        <span>머스타드 템플릿 가져오기는 머스타드에 이메일로 <br> 가입한 회원만 가능합니다. <br> SNS 로그인은 순차적으로 지원할 예정입니다.</span>
+        <br><br>
+<!--        <span>SNS 계정으로 로그인하기</span>-->
+<!--        <div class="sns-box">-->
+<!--          <app-kakao-login (loginSuccessEvent)="loginSuccessEventHandler($event)"></app-kakao-login>-->
+<!--          <app-google-login></app-google-login>-->
+<!--          <app-facebook-login></app-facebook-login>-->
+<!--          <a (click)="appleLogin()" class="apple" style="cursor: pointer;"></a>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="pop m-login" *ngIf="viewType == 'list'">
+    <div class="pop-header">
+      <h2>머스타드 템플릿 가져오기</h2>
+      <i class="close" (click)="closeDialog()" style="cursor: pointer"></i>
+    </div>
+    <div class="pop-body pd1">
+
+      <ng-container *ngIf="mustadList != null">
+        <div *ngFor="let mustad of mustadList; let i = index"
+             class="label-list" style="margin-top: {{mustad.transform ? '34px' : '0px'}}; margin-bottom: {{mustad.transform ? '34px' : '0px'}}">
+          <input type="checkbox" id="item_{{mustad.id}}" class="checkbox-btn"
+                 [(ngModel)]="mustad.checked"
+                 (change)="isChecked($event, mustad.id)"
+          />
+          <label for="item_{{mustad.id}}"></label>
+          <label class="pop-label-file" for="item_{{mustad.id}}" >
+            <img src="{{mustad.providerMetadata.resource}}" style="transform: rotate({{mustad.transform || '0deg'}})" alt="메인비주얼1">
+          </label>
+        </div>
+      </ng-container>
+
+      <!--&lt;!&ndash; 템플릿이 없을 경우 &ndash;&gt;-->
+      <div class="label-list none" *ngIf="mustadList == null">
+        <span>템플릿이 없습니다.</span>
+      </div>
+    </div>
+    <div class="pop-bottom">
+      <button type="button" class="btn-01 w100p fs1"
+              (click)="addTemplate()">가져오기</button>
+    </div>
+    <div class="pop-bottom" style="padding-top: 0.5em">
+      <button type="button" class="btn-01 w100p fs1" style="background-color: #999999;"
+              (click)="removeFederatedToken()">다른 계정으로 로그인</button>
+    </div>
+  </div>
+</div>

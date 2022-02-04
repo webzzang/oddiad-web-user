@@ -1,0 +1,238 @@
+<app-top [home] = 'true'></app-top>
+<main>
+    <div class="main-wrap">
+        <section class="key-visual-wrap">
+            <div class="key-visual" #keyVisual>
+                <div class="visual-01" *ngFor ="let slider of sliders">
+                    <img [src]="slider.filePath" alt="메인비주얼1">
+                    <div class="v-text-wrap">
+                            <pre class="v-text">
+                                <span>
+                                    <div [innerHTML]="slider.description">
+
+                                    </div>
+                                </span>
+                                <button type="button" class="btn-01 go-button mt40" [routerLink]="slider.routerLink">{{slider.buttonName}}</button>
+                                </pre>
+                    </div>
+                </div>
+            </div>
+            <div class="key-visual-buttons">
+                <span class="total-slide-no"></span>
+                <button type="button" class="pause-button" (click)="slidePause()"></button>
+                <button type="button" class="start-button" (click)="slideStart()"></button>
+            </div>
+        </section>
+        <section class="service-1">
+            <div class="serction-wrap">
+                <div class="od-onair-box">
+                    <div class="col-50 flex-between-col">
+                        <div class="od-onair-1">
+                            <h2>오디 라이브</h2>
+                            <i class="plus-more" [routerLink]="['/live']"></i>
+                        </div>
+                        <div class="od-onair-2">
+                            <div class="mb10">
+                                <i *ngIf="hasLive"
+                                   class="live-on cursor-pointer"
+                                   (click)="changePlayMode('live')"></i>
+
+                                <i *ngIf="!hasLive"
+                                   class="live-off"></i>
+                            </div>
+
+                            <ng-container *ngIf="liveList.length > 0">
+                                <div *ngFor="let live of liveList"
+                                     class="live-1 flex-between">
+                                    <span>{{live.title}}</span>
+                                    <time>{{live.operationDay}}</time>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="liveList.length == 0">
+                                <div class="live-1 flex-between t-center">
+                                    <span>라이브가 존재하지 않습니다.</span>
+                                </div>
+                            </ng-container>
+
+                            <div class="mt10"><label class="label-normal">* 라이브 시간 외에는 업데이트된 오디존&지하철 영상을 보실 수 있습니다.</label></div>
+                        </div>
+                    </div>
+                    <div #videoDiv
+                         class="col-70">
+                        <ng-container *ngIf="'live' == playMode">
+                            <iframe *ngIf="currentLive?.youtubeLiveUrl"
+                                    width="100%" [height]="videoHeight"
+                                    [src]="currentLive.youtubeLiveUrl | safe"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <video *ngIf="!currentLive?.youtubeLiveUrl"
+                                   poster="assets/images/no-live.png"></video>
+                        </ng-container>
+                        <ng-container *ngIf="'normal' == playMode">
+                            <iframe *ngIf="currentVod?.youtubeVodUrl"
+                                    width="100%" [height]="videoHeight"
+                                    [src]="currentVod.youtubeVodUrl | safe"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <video *ngIf="!currentVod?.youtubeVodUrl"
+                                   poster="assets/images/no-live.png"></video>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="service-2">
+            <div class="serction-wrap">
+                <h2><strong>오디</strong>를 선택해야하는 이유</h2>
+                <div class="od-reason-box">
+                    <div class="col-30 flex-start-col">
+                        <div class="reason-icon-1 mb10"></div>
+                        <div>
+                            <div class="reason-text-1"><span>적은</span>&nbsp;<span class="green-text">비용</span></div>
+                            <div class="reason-text-2">
+                                        <span>최소 월 3만원의 저렴한 비용!<br>
+                                        부담없이 신청하세요.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-30 flex-start-col">
+                        <div class="reason-icon-2 mb10"></div>
+                        <div>
+                            <div class="reason-text-1"><span>원하는</span>&nbsp;<span class="green-text">장소</span></div>
+                            <div class="reason-text-2">
+                                        <span>내가 원하는 곳을 고를 수있다!<br>
+                                            우리동네 핫플을 찾아보세요! </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-30 flex-start-col">
+                        <div class="reason-icon-3 mb10"></div>
+                        <div>
+                            <div class="reason-text-1"><span>한달도</span>&nbsp;<span class="green-text">OK</span></div>
+                            <div class="reason-text-2">
+                                        <span>긴 약정 기간은 그만~<br>
+                                            한 달만 하셔도 OK!.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="service-3">
+            <div class="serction-wrap">
+                <h2><span>다양한 업종의 파트너가</span>&nbsp;<span>오디와 함께 합니다.</span></h2>
+                <div class="sub-text">현재 <span class="green-text">{{partnerCnt}}</span>건의 광고를 진행했습니다.</div>
+                <div class="partner-slider" #partnerSlider>
+                    <div class="partner-list" *ngFor = "let partner of partners">
+                        <div class="p-circle">
+                            <strong>{{partner.mallName}}</strong>
+                            <span>{{partner.summary}}</span>
+                            <img [src]="partner.filePath" alt="매장이미지">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="service-4">
+            <div class="serction-wrap">
+                <div class="od-promotion-box">
+                    <div class="col-40 flex-start-col">
+                        <div class="od-promotion-1" [routerLink] ="['/zone']">
+                            <div>
+                                <h3>오디 광고 신청</h3>
+                                <span>
+                                            내 매장을 알릴 수 있는 다양한 매장을 확인하고
+                                            광고를 진행해보세요!
+                                        </span>
+                                <i class="a-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-40 flex-start-col">
+                        <div class="od-promotion-2"  [routerLink] ="['/subway']">
+                            <div>
+                                <h3>지하철 광고 신청</h3>
+                                <span>
+                                            비싼 지하철 역사 내 광고,
+                                            오디에서는 하루 1만원
+                                        </span>
+                                <i class="a-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-40 flex-start-col">
+                        <div class="od-promotion-3" [routerLink] ="['/partnership']">
+                            <div>
+                                <span>
+                                            강남, 서초에 매장있으세요?
+                                            무료로 TV 2대 설치하고 월 10만원 받아가세요!
+                                        </span>
+                                <i class="a-arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="faq">
+            <div class="serction-wrap">
+                <div class="od-faq-box">
+                    <div class="col-40 flex-between-col">
+                        <div class="od-faq-1">
+                            <h2><span>자주묻는 질문</span><strong>FAQ Top7</strong></h2>
+                            <i class="plus-more-b" [routerLink] ="['/faq']" [queryParams]="{categoryCode: 'top7'}"></i>
+                        </div>
+                    </div>
+                    <div class="col-80">
+                        <div class="faq-accordion notice-list" #faqAccordion >
+                            <div class="notice-list-1 list-none" *ngIf="faqLength == 0">
+                                <p>FAQ가 없습니다.</p>
+                            </div>
+                            <ng-container *ngIf="faqLength != 0">
+                                <ng-container *ngFor="let faq of faqList; let k = index">
+                                    <h3>Q. {{faq.title}}</h3>
+                                    <div>
+                                        <p>A. {{faq.contents}} </p>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="od-guide">
+            <div class="serction-wrap">
+                <div class="od-guide-box">
+                    <div class="col-60">
+                        <div class="od-guide-1">
+                            <h2>공지사항</h2>
+                            <i class="plus-more-b " [routerLink] ="['/notice/list']"></i>
+                        </div>
+                        <div class="notice-list">
+                            <div class="notice-list-1 list-none" *ngIf="noticeList.total != null && noticeList.total == 0">
+                                <p>공지사항이 없습니다.</p>
+                            </div>
+                            <ng-container *ngFor="let notice of noticeList.data; let k = index">
+                                <div class="notice-list-1">
+                                    <p (click)="noticeDetail(notice.rownum)" style="cursor: pointer">{{notice.title}}</p>
+                                    <time>{{notice.regDate | date :  "yyyy.MM.dd" }}</time>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="col-60">
+                        <h2>1:1문의</h2>
+                        <div class="help-desk-box">
+                            <div>
+                                <p>무엇을 도와 드릴까요?</p>
+                                <label class="label-normal">궁금한 점이 있다면, 문의를 남겨주세요.</label>
+                            </div>
+                            <button type="button" class="btn-01 go-button" [routerLink]="['/inquire/form']">문의하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<app-footer></app-footer>

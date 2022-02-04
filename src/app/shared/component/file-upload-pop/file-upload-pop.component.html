@@ -1,0 +1,21 @@
+<div class="modal-small-03 w300">
+  <div class="modal-content">
+    <div class="modal-header dark">
+      <h6 class="modal-title dark f14">{{mData.title}}</h6>
+        <button type="button" class="close s-size" data-dismiss="modal" aria-label="Close" (click)="closeDialog()"></button>
+    </div>
+    <div class="modal-body">
+      <section>
+        <input type="file" #fileInput (change)="fileChange($event.target.files)" hidden>
+        <label class="input-title mb10">첨부파일</label>
+        <input class="form-control white-02 mr5 w170" type="search" placeholder="" [(ngModel)]="fileName">
+        <button type="button" class="btn btn-type-06 sm-btn" (click)="fileInput.click()">찾아보기</button>
+      </section>
+    </div>
+    <div class="modal-footer dark flex-center">
+      <button type="button" class="btn btn-type-03 sm-btn" *ngIf="isSample" (click)="getSample()">샘플</button>
+      <button type="button" class="btn btn-type-04 sm-btn" [disabled]="!isAttachFile" (click)="uploadFile()">저장</button>
+      <button type="button" class="btn btn-type-05 sm-btn" (click)="closeDialog()">취소</button>
+    </div>
+  </div>
+</div>

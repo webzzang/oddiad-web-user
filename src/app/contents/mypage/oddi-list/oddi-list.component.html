@@ -1,0 +1,93 @@
+<section class="mypage">
+    <div class="serction-wrap">
+        <h2>오디관리</h2>
+        <div class="oddi-chk-box">
+            <div *ngFor="let code of codeList; let i = index">
+                <input type="checkbox" id="{{code.code}}" class="oddi-button" (click)="codeClick($event)" [checked]="code.checked"/>
+                <label for="{{code.code}}"><span>{{code.name}}</span></label>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <div class="notice-list" *ngIf="total <= 0">
+                <div class="notice-list-1 list-none">
+                    <p>신청내역이 없습니다.</p>
+                </div>
+            </div>
+
+            <table class="table02"  *ngIf="total != 0">
+                <colgroup>
+                    <col style="width: 10%;" />
+                    <col style="width: 10%;" />
+                    <col style="width: 10%;" />
+                    <col />
+                    <col />
+                    <col style="width: 10%;" />
+                    <col style="width: 10%;" />
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>신청일</th>
+                    <th>광고종류</th>
+                    <th>위치</th>
+                    <th>광고 제목</th>
+                    <th>신청 기간</th>
+                    <th>광고 심사</th>
+                    <th>광고 진행</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let oddi of oddList; let i = index" (click)="oddiInfoClick(oddi)">
+                      <ng-container *ngIf="auditCode ==  'all'">
+                          <td class="fw700">{{oddi.regDate}}</td>
+                          <td class="fw700">{{oddi.channelTypeName}}</td>
+                          <td class="fw700">
+                              <ng-container *ngFor="let p of oddi.partnerList; let i = index" >
+                                  <span>{{p.mallName}}</span>
+                              </ng-container>
+                          </td>
+                          <td class="fw700"><a>{{oddi.title}}</a></td>
+                          <td class="fw700">{{oddi.startDate}} ~ {{oddi.endDate}}</td>
+                          <td class="fw700">{{oddi.auditName}}</td>
+                          <td class="fw700" *ngIf="oddi.auditCode == 'ADT003'"> <!--보류-->
+                              <a class="link-tab">재심사 신청</a>
+                          </td>
+                          <td class="fw700" *ngIf="oddi.auditCode == 'ADT002'">  <!--승인-->
+                              {{oddi.appStatue}}
+                          </td>
+                          <td class="fw700" *ngIf="oddi.auditCode == 'ADT001'">  <!--대기-->
+                              -
+                          </td>
+                      </ng-container>
+                      <ng-container *ngIf="auditCode !=  'all'">
+                          <ng-container *ngIf="oddi.progressCode != 'PGT004' && oddi.progressCode != 'PGT005'">
+                              <td class="fw700">{{oddi.regDate}}</td>
+                              <td class="fw700">{{oddi.channelTypeName}}</td>
+                              <td class="fw700">
+                                  <ng-container *ngFor="let p of oddi.partnerList; let i = index" >
+                                      <span>{{p.mallName}}</span>
+                                  </ng-container>
+                              </td>
+                              <td class="fw700"><a>{{oddi.title}}</a></td>
+                              <td class="fw700">{{oddi.startDate}} ~ {{oddi.endDate}}</td>
+                              <td class="fw700">{{oddi.auditName}}</td>
+                              <td class="fw700" *ngIf="oddi.auditCode == 'ADT003'"> <!--보류-->
+                                  <a class="link-tab">재심사 신청</a>
+                              </td>
+                              <td class="fw700" *ngIf="oddi.auditCode == 'ADT002'">  <!--승인-->
+                                 {{oddi.appStatue}}
+                              </td>
+                              <td class="fw700" *ngIf="oddi.auditCode == 'ADT001'">  <!--대기-->
+                                  -
+                              </td>
+                          </ng-container>
+                      </ng-container>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="end-button t-center"  >
+            <button *ngIf="total != 0" type="button" class="btn-05 plus-m w200" (click)="getMyOddiList()">더보기</button>
+        </div>
+
+    </div>
+</section>

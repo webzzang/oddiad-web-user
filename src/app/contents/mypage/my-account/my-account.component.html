@@ -1,0 +1,233 @@
+  <div class="main-wrap">
+
+    <section class="mypage">
+      <form [formGroup]="accountForm" #formDir="ngForm">
+      <div class="serction-wrap">
+        <!-- <ul class="bread-crumb">
+            <li><a href="#none">오디관리</a></li>
+            <li><a href="#none" class="on">결제</a></li>
+        </ul> -->
+        <h2>회원정보수정</h2>
+        <div class="tb-01 store-01 person-box">
+          <div class="row-02 ap-50">
+            <div><span>이름</span></div>
+            <div class="col-1">
+              <div class="col-start">
+                <div class="form-box-np w50p">
+                  <input type="text" class="base-form" formControlName="name" [(ngModel)]="account.name">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row-02 ap-50">
+            <div><span>이메일</span></div>
+            <div class="col-1">
+              <div class="col-start">
+                <div class="form-box-np btn-width w50p">
+                  <input type="text" class="base-form"
+                         formControlName="email"
+                         (change)="emailValueChange()"
+                         [(ngModel)]="account.email">
+                  <button type="button" class="base-form btn-04"
+                          (click)="checkEmailDuplication()">중복조사</button>
+                </div>
+              </div>
+              <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+                <label *ngIf="email.errors?.required" class="label-error">이메일을 입력해 주세요</label>
+                <label *ngIf="email.errors?.pattern" class="label-error">올바른 이메일 주소를 입력해주세요</label>
+              </ng-container>
+              <label *ngIf="!email.invalid && !isCheckedDoubleEmail" class="label-error">이메일 중복체크를
+                확인해주세요</label>
+              <label *ngIf="!email.invalid && checkDoubleEmailStatus == false" class="label-error">이미
+                등록된 이메일입니다. 다른 이메일을 입력해주세요 </label>
+              <label
+                  *ngIf="!email.invalid && isCheckedDoubleEmail == true && checkDoubleEmailStatus == true"
+                  class="label-ok">사용가능한 이메일입니다.</label>
+            </div>
+          </div>
+          <div class="row-02 ap-50">
+            <div><span>휴대전화번호</span></div>
+            <div class="col-1">
+              <div class="col-start">
+                <div class="form-box-np btn-width w50p">
+                  <input type="text" class="base-form"
+                         [textMask]="{mask: Constants.MASK.telephone}"
+                         formControlName="phoneNumber"
+                         [(ngModel)]="account.phoneNumber">
+                  <button *ngIf="remainTimeDisabled==false" type="button" class="base-form btn-04" (click)="send()">변경</button>
+                  <button *ngIf="remainTimeDisabled == true" type="button" class="base-form btn-04"
+                          (click)="resend()">인증번호 재전송
+                  </button>
+                </div>
+              </div>
+              <div class="col-start" *ngIf="remainTimeDisabled == true">
+                <div class="form-box-np btn-width w50p">
+                  <div class="timer-box">
+                    <input type="text" class="base-form"
+                           formControlName="certificationNumber"
+                           [(ngModel)]="certificationNumber"
+                           placeholder="인증번호를 입력해 주세요.">
+                    <span *ngIf="remainTimeText" class="timer">({{remainTimeText}})</span>
+                  </div>
+                  <label *ngIf="timeout == true" class="label-error">입력 시간 초과, 인증번호를 다시 전송해 주세요.</label>
+
+                  <button type="button" class="base-form btn-02"
+                          (click)="certification()">확인</button>
+                </div>
+              </div>
+              <label *ngIf="timeout == true" class="label-error">입력 시간 초과, 인증번호를 다시 전송해 주세요.</label>
+            </div>
+          </div>
+          <hr class="hr10">
+
+          <ng-container *ngIf="account.pcompanyName != null">
+            <div><span class="bundle-person">개인사업자</span></div>
+            <div class="row-02 ap-50">
+              <div><span>상호명</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form"
+                           formControlName="pcompanyName"
+                           [(ngModel)]="account.pcompanyName">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-02 ap-50">
+              <div><span>사업자명</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form"
+                           formControlName="pceo"
+                           [(ngModel)]="account.pceo">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-02 ap-50">
+              <div><span>사업자 등록번호</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form"
+                           formControlName="pbusinessLicenseNumber"
+                           [(ngModel)]="account.pbusinessLicenseNumber">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-02 ap-50">
+              <div><span>사업자 등록증</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form" (click)="pFile.click()"
+                           formControlName="pbusinessLicenseFileName"
+                           [value]="account.pbusinessLicenseFileName"
+                           placeholder="사업자등록증 (JPG, PNG 파일)" readonly [(ngModel)]="account.pbusinessLicenseFileName" name="pbusinessLicenseFileName" required="true">
+                    <button type="button" class="base-form btn-04" (click)="pFile.click()">변경</button>
+                    <input style="display:none;" type="file" #pFile accept="image/jpeg, image/png"
+                           (change)="bizFileChange($event.target.files , 'BCT002')">
+                  </div>
+                </div>
+                <label class="label-file" *ngIf="account.pbusinessLicenseFileSeq != null">
+                  <span (click)="fileDownload(account.pbusinessLicenseFileSeq, account.pbusinessLicenseFileName)" style="cursor:pointer">{{account.pbusinessLicenseFileName}}</span>
+                  <i class="file-del" (click)="deleteBizFile('BCT002')"></i>
+                </label>
+              </div>
+            </div>
+            <hr class="hr10">
+          </ng-container>
+          <ng-container *ngIf="account.ccompanyName != null">
+            <div><span class="bundle-person">법인사업자</span></div>
+            <div class="row-02 ap-50">
+              <div><span>상호명</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form"
+                           formControlName="ccompanyName"
+                           [(ngModel)]="account.ccompanyName">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-02 ap-50">
+              <div><span>대표자명</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form"
+                           formControlName="cceo"
+                           [(ngModel)]="account.cceo">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-02 ap-50">
+              <div><span>사업자 등록번호</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form"
+                           [textMask]="{mask: Constants.MASK.businessNumber}"
+                           formControlName="cbusinessLicenseNumber"
+                           [(ngModel)]="account.cbusinessLicenseNumber">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row-02 ap-50">
+              <div><span>사업자 등록증</span></div>
+              <div class="col-1">
+                <div class="col-start">
+                  <div class="form-box-np btn-width w50p">
+                    <input type="text" class="base-form" (click)="cFile.click()"
+                           formControlName="cbusinessLicenseFileName"
+                           [value]="account.cbusinessLicenseFileName"
+                           placeholder="사업자등록증 (JPG, PNG 파일)" readonly [(ngModel)]="account.cbusinessLicenseFileName" name="cbusinessLicenseFileName" required="true">
+                    <button type="button" class="base-form btn-04" (click)="cFile.click()">변경</button>
+                    <input style="display:none;" type="file" #cFile accept="image/jpeg, image/png"
+                           (change)="bizFileChange($event.target.files , 'BCT001')">
+                  </div>
+                </div>
+                <label class="label-file" *ngIf="account.cbusinessLicenseFileSeq != null">
+                  <span (click)="fileDownload(account.cbusinessLicenseFileSeq, account.cbusinessLicenseFileName)" style="cursor:pointer">{{account.cbusinessLicenseFileName}}</span>
+                  <i class="file-del" (click)="deleteBizFile('BCT002')"></i>
+                </label>
+              </div>
+            </div>
+            <hr class="hr10">
+          </ng-container>
+          <div class="end-box">
+            <div class="flex-between">
+              <span>마케팅 수신 동의에 동의합니다.</span>
+              <button type="button" class="btn-04 base-form w100"
+                      (click)="openTermPopup(terms.seq)">약관보기</button>
+            </div>
+            <div>
+              <input type="checkbox" id="c2" class="checkbox-btn" checked [(ngModel)]="account.emailReceiveConsent" formControlName="terms"/>
+              <label for="c2"><span>이메일 수신</span></label>
+            </div>
+            <div>
+              <input type="checkbox" id="c3" class="checkbox-btn" checked [(ngModel)]="account.receiveConsent" formControlName="terms"/>
+              <label for="c3"><span>문자메시지 수신</span></label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </form>
+    </section>
+    <div class="bottom-btn-wrap st">
+      <span class="text-1">
+        <a class="label-secession"
+           (click)="withdrawal()">회원 탈퇴</a>
+      </span>
+      <button type="button" class="btn-01 fs1"
+              (click)="modify()">수정완료</button>
+    </div>
+  </div>

@@ -1,0 +1,78 @@
+<main>
+<div class="main-wrap">
+
+  <section class="mypage">
+    <div class="serction-wrap">
+      <h2>결제 내역</h2>
+
+      <div class="table-wrap">
+        <div class="notice-list" *ngIf="total <= 0">
+          <div class="notice-list-1 list-none">
+            <p>결제 내역이 없습니다.</p>
+          </div>
+        </div>
+
+        <table class="table02 payment-all" *ngIf="total != 0">
+          <colgroup>
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+            <col style="width: 7%;" />
+          </colgroup>
+          <thead>
+          <tr>
+            <th>신청일</th>
+            <th>주문번호</th>
+            <th>결제일</th>
+            <th>광고종류</th>
+            <th>위치</th>
+            <th>광고제목</th>
+            <th>광고업종</th>
+            <th>신청기간</th>
+            <th>광고슬롯</th>
+            <th>쿠폰사용</th>
+            <th>결제수단</th>
+            <th>결제금액</th>
+            <th>결제상태</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bill of billList; let i = index">
+              <td class="fw700">{{bill.regDate}}</td>
+              <td class="fw700">{{bill.moid}}</td>
+              <td class="fw700">{{bill.applDate}}</td>
+              <td class="fw700">{{bill.channelTypeName}}</td>
+              <td class="fw700">
+                <ng-container *ngFor="let p of bill.partnerList; let i = index" >
+                  <span>{{p.mallName}}</span>
+                </ng-container>
+              </td>
+              <td class="fw700">{{bill.advName}}</td>
+              <td class="fw700"><a href="#none">{{bill.businessTypeName}}</a></td>
+              <td class="fw700">{{bill.advStartDate}} ~ {{bill.advEndDate}}</td>
+              <td class="fw700">{{bill.requestSlot}}</td>
+              <td class="fw700">{{bill.couponName}}</td>
+              <td class="fw700">{{bill.payMethod}}</td>
+              <td class="fw700">{{bill.price  | stringFormatPipe:{type: 'comma'} }}</td>
+              <td class="fw700">{{ (bill.pgPaymentType == 0) ? '결제 완료' : '결제 취소'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="end-button t-center">
+        <button *ngIf="total != 0" type="button" class="btn-05 plus-m w200" (click)="getBillList()">더보기</button>
+      </div>
+
+    </div>
+  </section>
+</div>
+</main>

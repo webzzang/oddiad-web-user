@@ -1,0 +1,19 @@
+
+<!-- 팝업 -->
+<div class="dim">
+  <div class="pop m-slider">
+    <div class="pop-header">
+      <h2>운영 화면</h2>
+      <i class="close" style="cursor: pointer"
+         (click)="closeDialog()"></i>
+    </div>
+    <div class="pop-body pd0">
+      <div class="pop-slider" #popSlider>
+        <div class="partner-list m-img" *ngFor="let img of imgList; let i = index">
+          <img src="{{img}}" alt="매장이미지">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

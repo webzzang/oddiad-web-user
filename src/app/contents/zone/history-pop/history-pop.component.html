@@ -1,0 +1,78 @@
+<div class="dim">
+    <div class="pop" style="max-width: 77rem;">
+        <div class="pop-header t-center">
+            <h2>오디존 광고 진행 내역</h2>
+            <i class="close" (click)="closeDialog()"></i>
+        </div>
+        <div class="pop-body pd0">
+            <div class="table-wrap">
+              <div class="notice-list" *ngIf="list.length <= 0">
+                <div class="notice-list-1 list-none">
+                  <p>광고 승인내역이 없습니다.</p>
+                </div>
+              </div>
+
+              <table class="table01" *ngIf="list.length != 0">
+                    <colgroup>
+                        <col style="width: 3%;" />
+                        <col style="width: 8%;" />
+                        <col style="width: 8%;" />
+                        <col style="width: 8%;" />
+                        <col />
+                        <col style="width: 7%;" />
+                        <col style="width: 7%;" />
+                        <col style="width: 8%;" />
+                        <col style="width: 10%;" />
+                        <col style="width: 8%;" />
+                        <col style="width: 6%;" />
+                        <col style="width: 6%;" />
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>신청일</th>
+                        <th>광고종류</th>
+                        <th>위치</th>
+                        <th>광고제목</th>
+                        <th>광고업종</th>
+                        <th>광고슬롯</th>
+                        <th>신청기간</th>
+                        <th>디자인제작</th>
+                        <th>광고심사</th>
+                        <th>광고진행</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let oddi of list; let i = index">
+                           <tr *ngIf="oddi.channelType == channelType">
+                                <td>
+                                    <input type="radio" class="radio-btn table" name="{{oddi.advSeq}}" id="{{oddi.advSeq}}"
+                                           [value]="oddi" [(ngModel)]="info"/><label for="{{oddi.advSeq}}"></label>
+                                </td>
+                                <td>{{oddi.regDate}}</td>
+                                <td>{{oddi.channelTypeName}}</td>
+                                <td>
+                                    <ng-container *ngFor="let p of oddi.partnerList; let i = index" >
+                                        <span>{{p.mallName}}</span>
+                                    </ng-container>
+                                </td>
+                                <td>{{oddi.title}}</td>
+                                <td>{{oddi.businessTypeName}}</td>
+                                <td>{{oddi.requestSlot}}</td>
+                                <td>{{oddi.startDate}} ~ {{oddi.endDate}}</td>
+                                <td>{{oddi.designRequest == true ? '디자인 제작요청' : '디자인 직접 제작'}}</td>
+                                <td>{{oddi.auditCodeName}}</td>
+                                <td>{{oddi.advStatus}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="pop-bottom t-right">
+            <button type="button" class="btn-01 w200 fs1" (click)="oddiClick()">광고 가져오기
+            </button>
+        </div>
+    </div>
+</div>

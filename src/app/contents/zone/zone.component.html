@@ -1,0 +1,7 @@
+<main>
+    <div class="main-wrap">
+        <app-zone-view (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.VIEW}" ></app-zone-view>
+        <app-zone-form [searchData]="searchData" (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.FORM}" *ngIf="pageViewType == pageType.FORM"></app-zone-form>
+        <app-zone-payment [searchData]="searchData" (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.PAYMENT}" *ngIf="pageViewType == pageType.PAYMENT"></app-zone-payment>
+    </div>
+</main>

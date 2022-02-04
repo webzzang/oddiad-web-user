@@ -1,0 +1,13 @@
+<ng-container *ngIf="paymentParam.price == 0">
+  <button type="button"
+          [ngClass]="buttonClass"
+          [disabled]="isDisabled"
+          (click)="paymentSave()">결제요청</button>
+</ng-container>
+
+<ng-container *ngIf="paymentParam.price != 0">
+  <button type="button"
+          [ngClass]="buttonClass"
+          [disabled]="isDisabled"
+          (click)="openInicisPaymentPopup()">결제요청</button>
+</ng-container>

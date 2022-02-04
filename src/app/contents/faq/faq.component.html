@@ -1,0 +1,38 @@
+<main>
+    <div class="main-wrap">
+        <section class="notice">
+            <div class="serction-wrap">
+                <h2>FAQ</h2>
+                <div class="faq-chk-box">
+                    <div>
+                        <input type="checkbox" id="all" class="faq-button" (click)="tabClick($event)" #checkboxes/>
+                        <label for="all"><span>전체</span></label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="top7" class="faq-button" (click)="tabClick($event)" #checkboxes/>
+                        <label for="top7"><span>TOP 7</span></label>
+                    </div>
+                    <ng-container *ngFor="let code of codeList ; let i = index">
+                        <div>
+                            <input type="checkbox" id="{{code.code}}" class="faq-button" (click)="tabClick($event)" value="{{code.code}}" #checkboxes/>
+                            <label for="{{code.code}}"><span>{{code.name}}</span></label>
+                        </div>
+                    </ng-container>
+                </div>
+                <div *ngIf="faqLen != 0" class="faq-accordion" #faqAccordion>
+                    <ng-container *ngFor="let faq of faqList; let k = index">
+                        <h3 (click)="faqClick(faq.seq)">Q. {{faq.title}}</h3>
+                        <div>
+                            <p>A. {{faq.contents}} </p>
+                        </div>
+                    </ng-container>
+                </div>
+                <div *ngIf="faqLen <= 0" class="faq-accordion notice-list">
+                    <div class="notice-list-1 list-none">
+                        <p>FAQ가 없습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

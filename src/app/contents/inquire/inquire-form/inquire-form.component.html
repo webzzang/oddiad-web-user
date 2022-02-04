@@ -1,0 +1,121 @@
+<section class="notice">
+  <form [formGroup]="inquireForm" #formDir="ngForm">
+  <div class="serction-wrap">
+    <ul class="bread-crumb">
+      <li *ngIf="isLogin"><a href="#none">오디관리</a></li>
+      <li *ngIf="!isLogin"><a href="#none">홈</a></li>
+      <li><a href="#none" class="on">1:1문의</a></li>
+    </ul>
+    <h2>1:1문의</h2>
+    <div class="help-desk-box">
+      <div>
+        <p>무엇을 도와 드릴까요?</p>
+        <label class="label-normal">궁금한 점이 있다면, 문의를 남겨주세요.</label>
+      </div>
+    </div>
+    <div class="tb-01 store-01 write-box">
+      <div class="row-02 ap-50" *ngIf="!isLogin">
+        <div><span class="im">이름</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="form-box-np w50p">
+              <input type="text" class="base-form" placeholder="" [(ngModel)]="vo.name" formControlName="name">
+              <label *ngIf="name.invalid && (name.dirty || name.touched)" class="label-error">이름을 입력해
+                주세요</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row-02 ap-50" *ngIf="!isLogin">
+        <div><span class="im">이메일</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="form-box-np w50p">
+              <input type="text" class="base-form" placeholder="" [(ngModel)]="vo.email" formControlName="email">
+              <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+                <label *ngIf="email.errors?.required" class="label-error">이메일을 입력해 주세요</label>
+                <label *ngIf="email.errors?.pattern" class="label-error">올바른 이메일 주소를 입력해주세요</label>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-02 ap-50" *ngIf="!isLogin">
+        <div><span class="im">휴대전화번호</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="form-box-np w50p">
+              <input type="text" class="base-form" placeholder="" [(ngModel)]="vo.phoneNumber" formControlName="phoneNumber" [textMask]="{mask: Constants.MASK.telephone}">
+              <ng-container *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)">
+                <label *ngIf="phoneNumber.errors?.required" class="label-error">휴대전화번호를 입력해주세요.</label>
+                <label *ngIf="phoneNumber.errors?.pattern" class="label-error">휴대전화번호를 확인해 주세요.</label>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-02 ap-50">
+        <div><span class="im">문의 유형</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="select-box-type1 w50p form-box-np">
+              <select class="base-form" [(ngModel)]="vo.inquiryTypeCode"  formControlName="inquiryTypeCode">
+                <option value="" disabled [selected]="true">문의 유형 선택</option>
+                <ng-container *ngFor="let code of InquireType">
+                  <option [value] = "code.code">{{code.name}}</option>
+                </ng-container>
+              </select>
+              <label *ngIf="inquiryTypeCode.errors?.nullValidator" class="label-error">문의 유형을 선택해주세요.</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-02">
+        <div><span class="im">제목</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="form-box-np w100p">
+              <input type="text" class="base-form" placeholder="" [(ngModel)]="vo.title" formControlName="title">
+              <label *ngIf="title.invalid && (title.dirty || title.touched)" class="label-error">제목을 입력해
+                주세요</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-02">
+        <div><span class="im">내용</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="form-box-np w100p">
+            <textarea rows="10" placeholder="1:1 문의입니다." [(ngModel)]="vo.contents" formControlName="contents"></textarea>
+            <label *ngIf="contents.invalid && (contents.dirty || contents.touched)" class="label-error">내용을 입력해
+              주세요</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-02">
+        <div><span>첨부파일</span></div>
+        <div class="col-1">
+          <div class="col-start">
+            <div class="form-box-np btn-width w100p">
+              <input type="text" class="base-form" placeholder="" [(ngModel)]="fileName" formControlName="fileName" readonly>
+              <input type="file"  class="base-form" style="display:none;" hidden  #fileInput (change)="fileChange($event.target.files)">
+              <button type="button" class="base-form btn-04" (click)="fileInput.click()">파일선택</button>
+            </div>
+          </div>
+          <label class="label-normal">jpg, jpeg, bmp, svg, png, pdf, doc, docx, xls, xlsx, ppt, pptx, hwp, zip / 20mb 용량 제한</label>
+        </div>
+      </div>
+      <hr class="hr10">
+    </div>
+    <div class="end-button t-right">
+      <button type="button" class="btn-01 w200" (click)="saveConfirm()" [disabled]="!inquireForm.valid" *ngIf="!seq">문의하기</button>
+      <button type="button" class="btn-01 w200" (click)="saveConfirm()" [disabled]="!inquireForm.valid" *ngIf="seq">수정하기</button>
+    </div>
+  </div>
+  </form>
+</section>

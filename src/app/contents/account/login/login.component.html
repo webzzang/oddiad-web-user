@@ -1,0 +1,30 @@
+<app-top></app-top>
+<main class="short-height">
+    <div class="main-wrap">
+        <section class="join-od">
+            <div class="serction-wrap">
+                <h2>로그인</h2>
+                <div class="form-wrap">
+                    <div class="form-box">
+                        <input type="text" placeholder="이메일" [(ngModel)]="email" (keydown)="emailMsg=''" (keyup.enter)="login()">
+                    </div>
+                    <div class="form-box">
+                        <input type="password" placeholder="비밀번호" [(ngModel)]="password" (keydown)="passwordMsg=''" (keyup.enter)="login()">
+                    </div>
+                    <div class="form-box">
+                        <input type="checkbox" id="a1" class="checkbox-btn" [(ngModel)]="autoLogin"/>
+                        <label for="a1"><span>자동 로그인 (30일 유지)</span></label>
+                        <a  [routerLink] ="['/account/changePassword']">비밀번호찾기</a>
+                    </div>
+                    <div class="form-box mt40">
+                        <button type="button" class="btn-01 w100p fs1" (click)="login()">로그인</button>
+                    </div>
+                    <div class="form-box last">
+                        <label class="label-normal">오디 계정이 없으신가요? <a [routerLink] ="['/account/register']">회원가입</a></label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<app-footer></app-footer>

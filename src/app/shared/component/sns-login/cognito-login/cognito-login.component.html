@@ -1,0 +1,17 @@
+<div class="form-wrap">
+  <h1><span class="green-text">오디</span>X 머스타드</h1>
+
+  <div class="form-box">
+    <input type="text" placeholder="이메일"
+           [(ngModel)]="email"
+           (keyup.enter)="login()">
+  </div>
+  <div class="form-box">
+    <input type="password" placeholder="비밀번호"
+           [(ngModel)]="password"
+           (keyup.enter)="login()">
+  </div>
+  <div class="form-box mt40">
+    <button type="button" class="btn-01 w100p fs1" (click)="login()">로그인</button>
+  </div>
+</div>

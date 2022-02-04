@@ -1,0 +1,16 @@
+/*
+.form-img {  width:fit-content; height: fit-content; margin:0 auto; position: relative; }
+
+.form-img:before {  display: block; content: '';  position: absolute; z-index: 1;
+  top:50%; transform: translateY(-50%); width:100%; padding-top: calc(591.44 / 1127.34 * 100%);
+  border-top:20rem solid rgba(0,0,0,0.5);
+  border-bottom:20rem solid rgba(0,0,0,0.5);
+}
+
+.form-img:after {  display: block; content: '';  position: absolute; z-index: 2;
+    top:50%; transform: translateY(-50%); width:100%; padding-top: calc(591.44 / 1127.34 * 100%);
+    border:3px solid #fff;
+}
+
+.pop.i-slider .pop-slider { height: calc(100vh - 15rem);}
+*/

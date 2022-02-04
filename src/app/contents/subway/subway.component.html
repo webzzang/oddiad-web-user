@@ -1,0 +1,7 @@
+<main>
+    <div class="main-wrap">
+        <app-subway-view (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.VIEW}" ></app-subway-view>
+        <app-subway-form [searchData]="searchData" (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.FORM}" *ngIf="pageViewType == pageType.FORM"></app-subway-form>
+        <app-subway-payment [searchData]="searchData" (changeView)="onChangeView($event)" [ngClass]="{'dp-none': pageViewType != pageType.PAYMENT}" *ngIf="pageViewType == pageType.PAYMENT"></app-subway-payment>
+    </div>
+</main>

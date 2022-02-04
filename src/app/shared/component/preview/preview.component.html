@@ -1,0 +1,23 @@
+<div class="modal-content" [style.width.px]="mData.width">
+  <div class="modal-header dark">
+    <h6 class="modal-title dark f14">미리보기</h6>
+      <button type="button" class="close s-size" data-dismiss="modal" aria-label="Close" (click)="closeDialog()"></button>
+  </div>
+  <div class="modal-body">
+<!--      <hr class="new-hr"/>-->
+    <div class="flex-start thumbnail-wrap">
+      <div class="thumbnail-preview" *ngIf="isImg">
+        <div class="centered">
+          <img class="round" [src]="imageUrlInfo" alt="none">
+        </div>
+      </div>
+      <div class="thumbnail-preview">
+        <app-editor [isViewer]="true" [options]="editorConfig" [(data)]="mData['content']" ></app-editor>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer dark flex-center">
+    <button type="button" class="btn btn-type-05 sm-btn" (click)="closeDialog()" >취소</button>
+  </div>
+</div>

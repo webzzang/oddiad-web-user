@@ -1,0 +1,33 @@
+<section class="notice">
+  <div class="serction-wrap">
+    <h2>공지사항</h2>
+    <div class="table-wrap">
+      <table class="table02">
+        <colgroup>
+          <col style="width: 10%;" />
+          <col />
+          <col style="width: 10%;" />
+        </colgroup>
+        <thead>
+        <tr>
+          <th>번호</th>
+          <th>제목</th>
+          <th>등록일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let notice of noticeList.data; let k = index">
+          <tr>
+            <td class="fw700">{{noticeList.total - k}}</td>
+            <td class="t-left fw700"><a (click)="detailNotice(notice.rownum)">{{notice.title}}</a></td>
+            <td>{{notice.regDate | date :  "yyyy.MM.dd" }}</td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="end-button t-center">
+      <button type="button" class="btn-05 plus-m w200" (click)="getNoticeList()">더보기</button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+<main>
+    <div class="main-wrap">
+
+        <section class="notice">
+            <div class="serction-wrap">
+                <h2>공지사항</h2>
+                <div class="table-wrap">
+                    <div class="table-detail">
+                        <div class="thead">
+                            <div class="thead-title">{{info.title}}</div>
+                            <time>{{info.regDate | date :  "yyyy.MM.dd" }}</time>
+                        </div>
+                        <div class="tbody">
+                            <img *ngIf="info.filePath" [src]="info.filePath" alt="" style="max-width:100%;"><br>
+
+                            <p [innerHTML]="info.contents"></p>
+                        </div>
+                        <div class="under-board-list-wrap">
+                            <div class="prev-list">
+                                <div class=""><span class="p-arrow">PREV NOTICE</span></div>
+                                <ng-container *ngIf="info.preRownum" >
+                                    <div class="ellipsis-1"><a (click)="getNoticeDetail(info.preRownum)">{{info.preTitle}}</a></div>
+                                    <time>{{info.preRegDate | date :  "yyyy.MM.dd" }}</time>
+                                </ng-container>
+                                <ng-container *ngIf="!info.preRownum" >
+                                    <div class="ellipsis-1">이전글이 존재하지 않습니다.</div>
+                                </ng-container>
+                            </div>
+                            <div class="next-list">
+                                <div class=""><span class="n-arrow">NEXT NOTICE</span></div>
+                                <ng-container *ngIf="info.nextRownum">
+                                    <div class="ellipsis-1"><a (click)="getNoticeDetail(info.nextRownum)">{{info.nextTitle}}</a></div>
+                                    <time>{{info.nextRegDate | date :  "yyyy.MM.dd" }}</time>
+                                </ng-container>
+                                <ng-container *ngIf="!info.nextRownum">
+                                    <div class="ellipsis-1">다음글이 존재하지 않습니다.</div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="end-button t-center">
+                    <button type="button" class="btn-05 w200" routerLink="/notice/list">목록으로</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

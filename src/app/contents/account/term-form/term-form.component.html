@@ -1,0 +1,14 @@
+<div class="dim">
+    <div class="pop" style="max-width: 30rem;">
+        <div class="pop-header">
+            <h2>{{vo.title}}</h2>
+            <i class="close" (click)="closeDialog()"></i>
+        </div>
+        <div class="pop-body" #popBody>
+            <app-editor [isViewer]="true" [(data)]="vo.contents" ></app-editor>
+        </div>
+        <div class="pop-bottom">
+            <button type="button" class="btn-01 w100p fs1" (click)="confirmTerm()">확인</button>
+        </div>
+    </div>
+</div>
